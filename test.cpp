@@ -12,7 +12,7 @@ int main()
     A* aa = new A();
 
     aa->print();   
-
+hh
     delete aa; 
     return 0;
 }
