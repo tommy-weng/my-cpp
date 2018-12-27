@@ -45,11 +45,11 @@ struct Point
     
 };
 Point& operator * (u32 n, Point& p)
-    {
-        p.x *= n;
-        p.y *= n;
-        return p; 
-    }
+{
+    p.x *= n;
+    p.y *= n;
+    return p; 
+}
 ostream& operator <<(ostream& stream, Point& name)
 {
     stream  << "x = " <<  name.x << ' ' << "y = " << name.y << endl; 
@@ -79,7 +79,8 @@ struct A
 
 int main(void) 
 {
-    cout << getpid() << endl; 
+    Point pp = {2, 6};
+    cout << pp << endl; 
     return 0; 
 } 
 
