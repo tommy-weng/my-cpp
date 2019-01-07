@@ -1,19 +1,19 @@
 #include <iostream>
-#include "test.hpp"
-
+#include "MyUtils.hpp"
 
 using namespace std;
-
-int *A::a = NULL;
+void foo()
+{
+    cout << "Hi" << endl;
+}
 
 int main()
 {
-   
-    A* aa = new A();
-
-    aa->print();   
-hh
-    delete aa; 
+    foo();
     return 0;
-}
+}   
+
+
+
+    
 
