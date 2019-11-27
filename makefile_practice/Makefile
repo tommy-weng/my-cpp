@@ -1,15 +1,28 @@
-CCX = g++
+CXX := g++
 
-target = xx
+OBJ_DIR := obj/
 
-target: main.o hello.o
-	$(CCX) -o $(target)  main.o hello.o
+SRCS := main.cpp hello.cpp
 
-main.o: main.cpp main.hpp
-	$(CCX) -c main.cpp
+OBJS := $(addprefix $(OBJ_DIR), \
+	$(patsubst %.cpp,%.o, $(SRCS)))
 
-hello.o: hello.cpp
-	$(CCX) -c hello.cpp
+#$(info $(OBJS))
+
+TARGET := xx
+
+include local.mk
+
+.PHONY : all
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) -o $@ $^
+
+$(OBJ_DIR)%.o:%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) -c -o $@ $<
+
 
 clean:
-	rm *.o $(target) -f
+	rm $(OBJ_DIR) $(TARGET) -r -f

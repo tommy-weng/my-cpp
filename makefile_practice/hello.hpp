@@ -1,1 +1,1 @@
-void print_h();
+void print_h(int &a);

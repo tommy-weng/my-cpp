@@ -2,7 +2,16 @@
 
 using namespace std;
 
-void print_h()
+
+void test(int &b)
+{
+	cout << "In test: " << b << endl;
+}
+
+void print_h(int &a)
 {
 	cout << "Hello T_T" << endl;
+	cout << "parameter:a = " << a << endl;
+	test(a);
 }
+

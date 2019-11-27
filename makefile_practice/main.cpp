@@ -1,11 +1,16 @@
 #include <iostream>
+#include <cstdio>
+#include <string.h>
 #include "hello.hpp"
 
 using namespace std;
 
 int main()
 {
-	print_h();
-    cout << "hello main" << endl;
+	
+	float f = -1;
+	int a = 4;
+//	print_h(a);
+    cout << "hello main: " << f << endl;
     return 0;
 }
