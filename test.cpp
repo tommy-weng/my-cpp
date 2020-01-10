@@ -1,24 +1,25 @@
 #include <iostream>
+#include <ostream>
+#include <fstream>
 #include "MyUtils.hpp"
 
 using namespace std;
-void foo()
-{
-    cout << "Hi," << endl;
-    cout << "Tommy" << endl;
-    cout << "What are you doing" << endl;
-   
 
-    cout << "fdfsfa" << endl;
-    cout << "** ** ** " << endl;
-}
+
+class OutPut: public fstream
+{
+    
+};
 
 int main()
 {
-    string[] = {"abcdedg", "efdgafdfd","fsafdfdf}
+//    iostream oo;
+    OutPut op;
+    op.open("test.log", ios::app);
+    op.close();
     u32 a = 0xF0000000;
     u32 b = 0x2; 
-    cout << hex << (u32)a * (u64)b << endl; 
+    op << hex << (u32)a * (u64)b << endl; 
     return 0;
 }   
 
