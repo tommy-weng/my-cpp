@@ -1,44 +1,83 @@
+//specialization
+
 #include <iostream>
+#include <sstream>
+#include <string>
+
+#include <cstring>
+#include <cstdio>
+#include <cmath>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-struct S
+template<typename T, typename U>
+void add(T a, U b)
 {
-    int a;
-};
+    cout << "In raw function template" << endl;
+}
+
+template <>
+void add<int, double>(int a, double b)
+{
+    cout << "In specialization function template" << endl;
+}
+
+// partial specialization function is not supported in c++
 
 template <typename T, typename U>
-class A
+class Test
 {
-    public:
-        A():m_a(99){};
-        void show()
-        {
-            cout << m_a << endl;	
-        }
-    private:
-        T m_a;
+public:
+    Test(T x, U y):a(x),b(y)
+    {
+        cout << "In raw class template" << endl;
+    }
+
+private:
+    T a;
+    U b;
 };
 
-S s;
+template <>
+class Test<int, float>
+{
+public:
+    Test(int x, float y):a(x),b(y)
+    {
+        cout << "In complete specialization class template" << endl;
+    }
+
+private:
+    int a;
+    float b;
+};
 
 template <typename T>
-class A<T, int>
+class Test<T, float>
 {
-    public:
-        A():m_a(s){};
-        void show()
-        {
-            cout << m_a.a << endl;	
-        }
+public:
+    Test(T x, float y):a(x),b(y)
+    {
+        cout << "In partial specialization class template" << endl;
+    }
 
-    private:
-        S &m_a;
+private:
+    T a;
+    float b;
 };
 
-int main(void)
+
+
+
+int main()
 {
-    A<int, S> aa;
-    aa.show();
+    int x{2};
+    double y{2};
+    add(x, y);
+
+    Test<float, float>(1,2);
     return 0;
-}
+}   
+
