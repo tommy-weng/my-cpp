@@ -1,0 +1,69 @@
+image: nsbboamfh/cppdev:latest
+
+stages:
+    - build
+    - test
+    - qualitycheck
+
+build: 
+    stage: build
+    script:
+        - mkdir bld-default
+        - cd bld-default
+        - cmake ../
+        - make
+
+test:
+    stage: test
+    script:
+        - mkdir bld; cd bld; cmake ../
+        - make && CTEST_OUTPUT_ON_FAILURE=1 make test
+    artifacts:
+        paths:
+            - bld/*.txt
+        expire_in: 3 days
+
+ut:
+    stage: test
+    script:
+        - mkdir bld-ut; cd bld-ut; cmake ../
+        - make ut
+    artifacts:
+        paths:
+            - bld-ut/*.txt
+        expire_in: 3 days
+
+int:
+    stage: test
+    script:
+        - mkdir bld-int; cd bld-int; cmake ../
+        - make it
+    artifacts:
+        paths:
+            - bld-int/*.txt
+        expire_in: 3 days
+
+cppcheck:
+    stage: qualitycheck
+    script:
+        - mkdir bld-cppcheck && cd bld-cppcheck
+        - cmake -DENABLE_CPPCHECK=1 ../
+        - make
+
+sanitizer:
+    stage: qualitycheck
+    script:
+        - mkdir bld-sanitizer && cd bld-sanitizer
+        - cmake -DCMAKE_BUILD_TYPE=Sanitizer ../
+        - make
+
+valgrind:
+    stage: qualitycheck
+    script: 
+        - mkdir bld-valgrind && cd bld-valgrind
+        - cmake -DENABLE_VALGRIND=1 -DCMAKE_BUILD_TYPE=Debug ../
+        - make memcheck
+    artifacts:
+        paths:
+            - bld-valgrind/Testing/Temporary/
+        expire_in: 1 week
