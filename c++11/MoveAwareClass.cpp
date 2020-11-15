@@ -1,53 +1,37 @@
 #include <iostream>
-#include <sstream>
 #include <string>
-
 #include <cstring>
-#include <cstdio>
-#include <cmath>
 #include <vector>
-#include <bitset>
-#include <tuple>
-#include <algorithm>
+
 
 using namespace std;
 
-void foo(int& a)
-{
-    cout << "int& a" << endl;
-}
-
-void foo(int&& a)
-{
-    cout << "int&& a" << endl;
-}
-
-class Data
+class MyString
 {
 public:
-    Data()
+    MyString()
     {
         data_ = new char[100];
         len_ = 99;
         cout << "default ctor" << endl;
     }
 
-    Data(const Data& data)
-    :len_(data.len_)
+    MyString(const MyString& str)
+    :len_(str.len_)
     {
         data_ = new char[100];
-        memcpy(data_, data.data_, data.len_);
+        memcpy(data_, str.data_, str.len_);
         cout << "Copy ctor" << endl;
     }
 
-    Data(Data&& data)
-    :data_(data.data_), len_(data.len_)
+    MyString(MyString&& str) noexcept
+    :data_(str.data_), len_(str.len_)
     {
-        data.data_ = nullptr;
+        str.data_ = nullptr;
         cout << "Move ctor" << endl;
     }
 
-    Data& operator=(Data& data)
+    MyString& operator=(MyString& str)
     {
         cout << "Copy asign" << endl;
         if (data_)
@@ -57,11 +41,11 @@ public:
         }
 
         data_ = new char[100];
-        len_ = data.len_;
-        memcpy(data_, data.data_, data.len_);
+        len_ = str.len_;
+        memcpy(data_, str.data_, str.len_);
         return *this;
     }
-    Data& operator=(Data&& data)
+    MyString& operator=(MyString&& str) noexcept
     {
         cout << "Move asign" << endl;
         if (data_)
@@ -70,15 +54,15 @@ public:
             delete data_;
         }
 
-        data_ = data.data_;
-        len_ = data.len_;
-        data.data_ = nullptr;
-        data.len_ = 0;
+        data_ = str.data_;
+        len_ = str.len_;
+        str.data_ = nullptr;
+        str.len_ = 0;
         
         return *this;
     }
 
-    ~Data()
+    ~MyString()
     {
         cout << "dtor" << endl;
         if (data_)
@@ -96,9 +80,9 @@ private:
 
 int main()
 {
-    vector<Data> v;
+    vector<MyString> v;
     
-    Data dd;
+    MyString dd;
     v.push_back(move(dd));
     return 0;
 }   
