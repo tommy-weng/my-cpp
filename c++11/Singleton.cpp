@@ -41,6 +41,12 @@ public:
 private:
     Singleton(){cout << "Ctor" << endl;}
     ~Singleton(){cout << "Dtor" << endl;}
+
+    Singleton(const Singleton &) = delete;
+    Singleton(Singleton &&) = delete;
+    Singleton& operator =(const Singleton &) = delete;
+    Singleton& operator =(Singleton &&) = delete;
+
     static ObjectStorage obj;
     static Singleton* instance;
 };
@@ -51,6 +57,8 @@ Singleton* Singleton::instance{nullptr};
 int main()
 {
     auto instance = Singleton::getInstance();
+    auto instance2 = Singleton::getInstance();
+
     return 0;
 }   
 
