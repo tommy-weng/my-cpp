@@ -16,71 +16,40 @@ typedef unsigned char u8;
 
 using namespace std;
 
-enum ECourse
-{
-    EMathematics,
-    EPhilosophy,
-    EHistory
-};
-
-class Base
+class Point
 {
 public:
-    Base(u32 n):_n(n){}
-    void print()
+    Point(u32 a, u32 b):x(a),y(b){}
+    Point& operator * (u32 n)
     {
-        cout << "n: "<< _n << endl;
+        x *= n;
+        y *= n;
+        return *this; 
     }
+    friend Point& operator * (u32 n, Point& p); // if object locate at right of operator, must to use friend function defined out class.
+    friend ostream& operator <<(ostream& stream, Point& name); // same as above
 private:
-	int _n;
-};
-
-class Derived: public Base
-{
-};
-struct Point
-{
     u32 x;
     u32 y;
-    
 };
+
 Point& operator * (u32 n, Point& p)
 {
     p.x *= n;
     p.y *= n;
     return p; 
 }
+
 ostream& operator <<(ostream& stream, Point& name)
 {
-    stream  << "x = " <<  name.x << ' ' << "y = " << name.y << endl; 
+    stream  << "Point = {" <<  name.x << ", " << name.y << "}"; 
     return stream;
 }
 
-
-void foo(int x)
-{
-    cout << "::foo " << x << endl;
-}
-struct A
-{
-    void foo(double d) const {
-        cout << "A::foo " << d << endl; 
-    }
-    void foo(int i) const
-    {
-        cout << "int::foo " << i << endl;
-    }
-
-    void bar(int x)
-    {
-        foo(x);
-    }
-};
-
 int main(void) 
 {
-    Point pp = {2, 6};
-    cout << pp << endl; 
+    Point point{2, 6};
+    cout << 2 * point * 3 << endl; 
     return 0; 
 } 
 
