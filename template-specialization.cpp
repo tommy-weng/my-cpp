@@ -24,6 +24,22 @@ void add<int, double>(int a, double b)
     cout << "In specialization function template" << endl;
 }
 
+class A
+{
+public:
+    template <typename T, typename U>
+    static void foo(T k, U val)
+    {
+        cout << "in class A: " << val << endl;
+    }
+};
+
+template <>
+void A::foo<int, int>(int k, int val)
+{
+    cout << "out class A: " << val << endl;
+}
+
 // partial specialization function is not supported in c++
 
 template <typename T, typename U>
