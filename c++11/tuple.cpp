@@ -11,16 +11,38 @@
 
 using namespace std;
 
+template<typename T>
+struct Indexer
+{
+    T id;
+
+    Indexer(T&& id): id{id}{}
+};
+template <typename... Ts>
+class MyTuple
+{
+public:
+    MyTuple(Ts&&... ts):t{Indexer<Ts>{std::forward<Ts>(ts)}...}
+    {
+    }
+    auto& gettuple()
+    {
+        return t;
+    }
+private:
+    tuple<Indexer<Ts>...> t;
+};
 
 int main()
 {
     int a;
     float b;
     string c;
-    tuple<int, float, string> t(1,2.1,"hellow");
-    tie(a,b,c) = t;
-    get<2>(t) = "my name";
-    cout << c.c_str() << endl;
+
+    MyTuple<int, float, string> mt{1,1.2,"tommy"};
+    auto& t =  mt.gettuple();
+    cout << std::get<Indexer<string>>(t).id << endl;
+    //cout << std::get<1>(t).id << endl;
 
     return 0;
 }   
