@@ -26,7 +26,7 @@ private:
 
 void static_c(B* pb)
 {
-    D* pd1 = static_cast<D*>(pb);
+    D* pd1 = static_cast<D*>(pb); //dangerous
     if (pd1)
     {
         pd1->derived();
