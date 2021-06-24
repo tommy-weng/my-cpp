@@ -1,33 +1,22 @@
 #include <iostream>
-#include <sstream>
-#include <string>
-
-#include <cstring>
-#include <cstdio>
-#include <cmath>
 #include <vector>
 #include <algorithm>
 
-using namespace std;
-
-#define DIV(a,b) (a/b)
+using std::cout;
+using std::endl;
 
 int main()
 {
-    vector<int> v;
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
+    cout << "Version: <--" << __VERSION__ << "--> " << endl;
+    cout << "Cplusplus: <--" << __cplusplus << "-->" << endl;
 
-    int a[] = {4,5,6};
+    std::vector<int> v{ 1, 2, 3 };
+    v.emplace_back(4);
 
-    for (auto& i: a)
-    {
-        std::cout << i << std::endl;
-    }
+    for_each(v.begin(), v.end(), [](int &i){
+        cout << i << endl;
+        });
 
-    std::for_each(v.begin(), v.end(), [](int &i){cout << i << endl;});   
-    std::for_each(begin(a), end(a), [](int &i){cout << i << endl;});   
     return 0;
 }   
 
