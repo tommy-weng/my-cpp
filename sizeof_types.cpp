@@ -21,6 +21,6 @@ inline constexpr auto make_array(Args&&... vals)
 
 int main()
 {
-    printSize(1,2,3,4);
+    make_array<int>(1,2,3,4);
 }   
 
