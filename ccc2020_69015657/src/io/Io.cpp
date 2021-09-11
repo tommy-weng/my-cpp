@@ -63,12 +63,10 @@ bool Io::input(const char* file)
     }
 
     array<comm::City, MAX_CITIES> arr;
-    u32 t{0}, i{0};
-    while(not fin.eof())
+    u32 i{0};
+    for (string cityConfig; getline(fin, cityConfig);)
     {
-        string cityConfig;
-        getline(fin, cityConfig);
-        if (not cityConfig.empty())
+        if (i < MAX_CITIES)
         {
             vector<string> str{splitWithStl(cityConfig, ",")};
             arr[i].config().maxR_      = atoi(str[0].c_str());
@@ -79,13 +77,38 @@ bool Io::input(const char* file)
         }
         else
         {
+            i = 0;
+        }
+
+        if (i == MAX_CITIES)
+        {
             cities_.push_back(arr);
             comm::Week week;
             weeks_.push_back(week);
-            t++;
-            i = 0;
         }
     }
+
+    // while(not fin.eof())
+    // {
+    //     string cityConfig;
+    //     getline(fin, cityConfig);
+    //     if (not cityConfig.empty())
+    //     {
+    //         vector<string> str{splitWithStl(cityConfig, ",")};
+    //         arr[i].config().maxR_      = atoi(str[0].c_str());
+    //         arr[i].config().smLoad_    = atoi(str[1].c_str());
+    //         arr[i].config().disLoad_   = atoi(str[2].c_str());
+    //         arr[i].config().otherLoad_ = atoi(str[3].c_str());
+    //         i++;
+    //     }
+    //     else
+    //     {
+    //         cities_.push_back(arr);
+    //         comm::Week week;
+    //         weeks_.push_back(week);
+    //         i = 0;
+    //     }
+    // }
 
     return true;
 }
