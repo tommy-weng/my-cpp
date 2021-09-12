@@ -80,7 +80,7 @@ bool Io::input(const char* file)
             i = 0;
         }
 
-        if (i == MAX_CITIES)
+        if (MAX_CITIES == i)
         {
             cities_.push_back(arr);
             comm::Week week;
