@@ -18,7 +18,15 @@ public:
 
 class Diploma
 {
-
+public:
+    void printGraduateCertificate(std::shared_ptr<GraduateCertificate> gc)
+    {
+        gc->printGraduateCertificate();
+    }
+    void printEducationCertificate(std::shared_ptr<EducationCertificate> ec)
+    {
+        ec->printEducationCertificate();
+    }
 };
 
 class GraduateStudent : public GraduateCertificate, public EducationCertificate
@@ -58,17 +66,13 @@ public:
 
 int main()
 {
-    std::shared_ptr<GraduateCertificate> gc1 = std::make_shared<GraduateStudent>();
-    gc1->printGraduateCertificate();
-    std::shared_ptr<GraduateCertificate> gc2 = std::make_shared<UnderGraduateStudent>();
-    gc2->printGraduateCertificate();
+    Diploma diploma;
+    diploma.printGraduateCertificate(std::make_shared<GraduateStudent>());
+    diploma.printGraduateCertificate(std::make_shared<UnderGraduateStudent>());
+    diploma.printEducationCertificate(std::make_shared<GraduateStudent>());
+    diploma.printEducationCertificate(std::make_shared<UnderGraduateStudent>());
+    diploma.printEducationCertificate(std::make_shared<HighSchoolStudent>());
 
-    std::shared_ptr<EducationCertificate> ec1 = std::make_shared<GraduateStudent>();
-    ec1->printEducationCertificate();
-    std::shared_ptr<EducationCertificate> ec2 = std::make_shared<UnderGraduateStudent>();
-    ec2->printEducationCertificate();
-    std::shared_ptr<EducationCertificate> ec3 = std::make_shared<HighSchoolStudent>();
-    ec3->printEducationCertificate();
     return 0;
 }   
 
