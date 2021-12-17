@@ -13,7 +13,7 @@ auto tommy()
 }
 
 template <int... ids>
-struct Routes
+struct Router
 {
     static void test(const int v)
     {
@@ -22,7 +22,7 @@ struct Routes
 };
 
 template <int id, int... ids>
-struct Routes<id, ids...>
+struct Router<id, ids...>
 {
     static void test(const int v)
     {
@@ -32,7 +32,7 @@ struct Routes<id, ids...>
         }
         else
         {
-            Routes<ids...>::test(v);
+            Router<ids...>::test(v);
         }
     }
 };
@@ -41,7 +41,7 @@ int main()
 {
     int v = 5;
 
-    Routes<1,2,3,4>::test(v);
+    Router<1,2,3,4>::test(v);
 
     return 0;
 }
