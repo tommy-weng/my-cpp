@@ -2,27 +2,23 @@
 #include <stdio.h>
 
 #define LOG(format, arg...) fprintf(stdout, format, ##arg)
-#define PAR(arg, ...) cout << arg << __VA_ARGS__ << endl;
+#define TRACE(format, ...) fprintf(stdout, format, __VA_ARGS__)
 
-#define FUN(x) tommy##x
-#define PRINT(x) cout << "tommy"#x << endl;
+// Refer to: https://www.cnblogs.com/devcjq/articles/2430700.html
+// #: Replace x with string
+// ##: Joint 2 tokens
+#define TOKEN_9 9
+#define PRINT(x) fprintf(stdout, "token_" #x " = %d\n",TOKEN_##x)
 
 using namespace std;
 
-void tommy1()
-{
-    cout << "hi tommy" << endl;
-}
-
 int main()
 {
-    FILE* pf = NULL;
+    PRINT(9);
 
-    pf = fopen("test.log", "a");
+    LOG("log value = %d\n", 1);
+    TRACE("trace value = %d\n", 2);
 
-    //fputs("hello pf\n",pf);
-    
-    LOG("fdsafdsfsafdsf\n");
     return 0;
 }   
 
