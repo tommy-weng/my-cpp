@@ -19,7 +19,7 @@ void init(int capacity, int num)
 {
     for (uint i = 0; i <= num; i++)
     {
-        vector<int> row(capacity, 0);
+        vector<int> row(capacity + 1, 0);
         dp.push_back(row);
         w.push_back(i + 1);
         v.push_back(i + 2);
