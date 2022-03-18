@@ -33,36 +33,36 @@ private:
         return false;
     }
 
+    bool isContinuousDigit(const std::string& token)
+    {
+        auto diff1 = token.at(1) - token.at(0);
+        auto diff2 = token.at(2) - token.at(1);
+        auto diff3 = token.at(3) - token.at(2);
+
+        if ((1 == diff1 and 1 == diff2 and 1 == diff3) or (-1 == diff1 and -1 == diff2 and -1 == diff3))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     bool isContinuous(const std::string& passwd)
     {
-        std::string token{};
         for (int i = 0; i < len - 4; i++)
         {
             if (not isdigit(passwd.at(i)))
             {
-                token.clear();
                 continue;
             }
-            for (int j = i; j < i + 4; j++)
-            {
-                if (not isdigit(passwd.at(j)))
-                {
-                    token.clear();
-                    break;
-                }
-                token.push_back(passwd.at(j));
-            }
+            std::string token = passwd.substr(i, 4);
 
             if (not token.empty())
             {
-                auto diff1 = abs(token.at(1) - token.at(0));
-                auto diff2 = abs(token.at(2) - token.at(1));
-                auto diff3 = abs(token.at(3) - token.at(2));
-                if (1 == diff1 and 1 == diff2 and 1 == diff3)
+                if (isContinuousDigit(token))
                 {
                     return true;
                 }
-                token.clear();
             }
         }
         return false;
