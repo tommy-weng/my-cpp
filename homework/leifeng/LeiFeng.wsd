@@ -1,0 +1,36 @@
+@startuml
+Interface LeiFeng {
+    virtual void Sweep() = 0
+}
+
+class CollegeStudent {
+    void Sweep()
+}
+
+class Volunteer {
+    void Sweep()
+}
+
+LeiFeng <|.. CollegeStudent
+LeiFeng <|.. Volunteer
+
+
+interface FactoryLeiFengBase {
+    virtual LeiFeng* create() = 0
+}
+
+class FactoryLeiFeng<template> {
+    LeiFeng* create()
+}
+
+FactoryLeiFengBase <|.. FactoryLeiFeng
+
+CollegeStudent <.. FactoryLeiFeng
+Volunteer <.. FactoryLeiFeng
+
+class Client {
+
+}
+
+FactoryLeiFengBase <-- Client
+@enduml
