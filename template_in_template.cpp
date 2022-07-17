@@ -3,29 +3,24 @@
 using std::cout;
 using std::endl;
 
-template <class C>
+template <class T>
 struct A
 {
     A()
     {
-        cout << typeid(C).name() << endl;  
+        cout << std::is_same<int, T>::value << endl;  
     }
-    using type = C;
 };
 
 
-template <template <class> class>
-struct B
+template <typename T, template <typename U> class Containor>
+struct Generator
 {
-    B()
-    {
-        cout << "emmmmm" << endl;
-    }
+    Containor<T> values{};
 };
 
 int main()
 {
-    //A<int>{};
-    B<A>{};
+    Generator<int, A>{};
     return 0;
 }   
