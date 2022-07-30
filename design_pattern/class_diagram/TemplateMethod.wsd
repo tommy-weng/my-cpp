@@ -1,0 +1,25 @@
+@startuml
+
+class EmployeeActivity {
+    +void getActivity()
+    virtual void onDuty()
+    virtual void offDuty()
+    virtual void work()
+    virtual bool hook()
+    void printWorkingOverTimeInfo()
+}
+
+class ManagerActivity {
+    virtual void work()
+    virtual bool hook()
+}
+
+class EngineerAcivity {
+    virtual void work()
+    virtual bool hook()
+}
+
+EmployeeActivity <|-- ManagerActivity
+EmployeeActivity <|-- EngineerAcivity
+
+@enduml
