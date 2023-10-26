@@ -1,4 +1,4 @@
-// g++ my_gtest.cpp -lgtest -lpthread
+// g++ TestTranscript.cpp main.cpp -lgtest -lgmock -lpthread -I..
 
 #include <gtest/gtest.h>
 
