@@ -35,7 +35,7 @@ protected:
 TEST_F(TestTranscript, testCompute)
 {
     EXPECT_CALL(*mockArithmetics, plus(Gt(1),Gt(1))).Times(AnyNumber()).WillRepeatedly(Return(98));
-    EXPECT_CALL(*mockArithmetics, minus(Lt(100),Lt(10))).Times(AnyNumber()).WillRepeatedly(Return(98));
+    EXPECT_CALL(*mockArithmetics, minus(Lt(100),Lt(100))).Times(AnyNumber()).WillRepeatedly(Return(98));
     EXPECT_GT(110, transcript->compute());
 }
 
