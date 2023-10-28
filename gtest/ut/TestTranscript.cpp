@@ -29,14 +29,13 @@ protected:
 
     std::shared_ptr<Transcript> transcript{nullptr};
     std::shared_ptr<MockArithmetics> mockArithmetics{nullptr};
-
 };
 
 TEST_F(TestTranscript, testCompute)
 {
     EXPECT_CALL(*mockArithmetics, plus(Gt(1),Gt(1))).Times(AnyNumber()).WillRepeatedly(Return(98));
-    EXPECT_CALL(*mockArithmetics, minus(Lt(100),Lt(100))).Times(AnyNumber()).WillRepeatedly(Return(98));
-    EXPECT_GT(110, transcript->compute());
+    EXPECT_CALL(*mockArithmetics, minus(Lt(100),Le(100))).Times(AnyNumber()).WillRepeatedly(Return(98));
+    EXPECT_EQ(98, transcript->compute(98, 99, 100));
 }
 
 } // namespace ::testing

@@ -1,7 +1,7 @@
 #include "Transcript.hpp"
 
-int Transcript::compute()
+int Transcript::compute(int a, int b, int c)
 {
-    int k = arithmetics.plus(x, y);
-    return arithmetics.minus(k, z);
+    int x = arithmetics.plus(a, b);
+    return arithmetics.minus(x, c);
 }

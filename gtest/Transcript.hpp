@@ -11,12 +11,9 @@ class Transcript
 {
 public:
     Transcript(){}
-    int compute();
+    int compute(int a, int b, int c);
 
 private:
-    int x{100};
-    int y{98};
-    int z{97};
     Arithmetics arithmetics;
 };
 
