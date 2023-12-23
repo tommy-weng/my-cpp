@@ -13,23 +13,25 @@ std::atomic<int> sum{0};
 
 std::mutex mtx{};
 
-void foo(int id)
+void read_thread(int id)
 {
     cout << "Read thread # " << id << endl;
-    while(not ready){std::this_thread::yield();}
+    // while(not ready){std::this_thread::yield();}
+    while(not ready.load());
     for (int i{0}; i < 10000; i++)
     {
-        //std::lock_guard<std::mutex> lkg{mtx};
+        // std::lock_guard<std::mutex> lkg{mtx};
         sum--;
         cout << "Read sum: " << sum << endl;
         //std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
 
-void bar(int id)
+void write_therad(int id)
 {
     cout << "Write thread # " << id << endl;
-    while(not ready){std::this_thread::yield();}
+    // while(not ready){std::this_thread::yield();}
+    while(not ready.load());
     for (int i{0}; i < 10000; i++)
     {
         // std::unique_lock<std::mutex> lkg{mtx};
@@ -41,8 +43,8 @@ void bar(int id)
 
 int main()
 {
-    std::thread th1(foo, 10);
-    std::thread th2(bar, 11);
+    std::thread th1(read_thread, 10);
+    std::thread th2(write_therad, 11);
 
     ready = true;
     th1.join();
