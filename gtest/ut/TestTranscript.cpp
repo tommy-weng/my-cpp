@@ -38,4 +38,37 @@ TEST_F(TestTranscript, testCompute)
     EXPECT_EQ(98, transcript->compute(98, 99, 100));
 }
 
+// For conventional practise
+
+TEST_F(TestTranscript, testSucceedAndFail)
+{
+    SUCCEED();
+    GTEST_SKIP();
+    FAIL();
+}
+
+using Transcript_DeathTest = TestTranscript;
+
+testing::AssertionResult IsEven(int n) {
+  if ((n % 2) == 0)
+    return testing::AssertionSuccess();
+  else
+    return testing::AssertionFailure() << n << " is odd";
+}
+
+
+void NormalExit()
+{
+    std::cerr << "Bad thing happend again.";
+    std::exit(22);
+}
+
+TEST_F(Transcript_DeathTest, testDeathOrExit)
+{
+    EXPECT_DEATH({std::cerr << "error"; int* p = nullptr; *p = 1;}, "error");
+    EXPECT_EXIT(NormalExit(), testing::ExitedWithCode(1), "Bad thing happend again.");
+    // EXPECT_EXIT(KillProcess(), testing::KilledBySignal(SIGKILL),
+}
+
+
 } // namespace ::testing
