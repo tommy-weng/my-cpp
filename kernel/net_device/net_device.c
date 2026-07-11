@@ -74,11 +74,12 @@ static int set_mac_address(struct net_device *dev,void *p)
 	{
 		return -EBUSY;
 	}
-	memcpy(dev->dev_addr, addr->sa_data, dev->addr_len);
+	dev_addr_set(dev, (const u8 *)addr->sa_data);
 	return 0;
 }
-//void virt_tx_timeout(struct net_device *net,unsigned int txqueue)
-void virt_tx_timeout(struct net_device *net)
+
+// void virt_tx_timeout(struct net_device *net)
+void virt_tx_timeout(struct net_device *net,unsigned int txqueue)
 {
 	pr_info("virt_tx_timeout\n");
 }
@@ -91,16 +92,13 @@ static const struct net_device_ops net_ops =
 };
  
 static int virt_net_init(void){
+	static const u8 mac_addr[ETH_ALEN] = { 0x88, 0x88, 0x88, 0x88, 0x88, 0x88 };
+
 	virt_net= alloc_netdev(sizeof(struct net_device), "virt_net", NET_NAME_UNKNOWN,ether_setup);
 	virt_net->netdev_ops= &net_ops;
 	virt_net->flags = IFF_NOARP;
- 
-	virt_net->dev_addr[0] = 0x88;
-	virt_net->dev_addr[1] = 0x88;
-	virt_net->dev_addr[2] = 0x88;
-	virt_net->dev_addr[3] = 0x88;
-	virt_net->dev_addr[4] = 0x88;
-	virt_net->dev_addr[5] = 0x88;
+
+	eth_hw_addr_set(virt_net, mac_addr);
  
 	register_netdev(virt_net);
 	return 0;
