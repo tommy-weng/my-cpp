@@ -1,9 +1,9 @@
-KVERS = $(shell uname -r)
+KDIR = /root/G2-ECC300/kernel/linux-5.10-origin
 
 obj-m := net_device.o
 
 all:
-	make -C /lib/modules/$(KVERS)/build M=$(PWD) modules
+	make -C $(KDIR) M=$(PWD) modules CC=arm-linux-gnueabihf-gcc
 
 clean:
-	make -C /lib/modules/$(KVERS)/build M=$(PWD) clean
+	make -C $(KDIR) M=$(PWD) clean
