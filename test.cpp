@@ -13,6 +13,8 @@ int main()
         cout << i << endl;
     });
 
+    cout << "hello tommy" << endl;
+
     return 0;
 }   
 
